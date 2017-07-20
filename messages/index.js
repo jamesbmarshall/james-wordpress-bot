@@ -50,8 +50,8 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
         
         let b = [];
         b = JSON.parse(body);
-        console.log(b);
-            
+        session.send(JSON.stringify(body));
+
         // create the message
         msg.attachments([
             b.map((post) => {
