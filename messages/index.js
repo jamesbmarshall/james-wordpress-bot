@@ -41,6 +41,9 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
     session.send('You want to know about ' + searchTerm + '. Here\'s what I found:');
 })
 
+.matches('None', (session, args) => { 
+    session.send('Sorry, I don\'t understand.');
+})
 .onDefault((session) => {
     session.send('Sorry, I did not understand \'%s\'.', session.message.text);
 });
