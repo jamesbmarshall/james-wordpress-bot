@@ -35,7 +35,7 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 .matches('<yourIntent>')... See details at http://docs.botframework.com/builder/node/guides/understanding-natural-language/
 */
 .matches('Tags', (session, args) => {
-    request('http://www.google.com', function (error, response, body) {
+    request('https://jamesbmarshall.com/wp-json/wp/v2/posts?search=' + args.entities[0].entity, function (error, response, body) {
         session.send('error:', error); // Print the error if one occurred
         session.send('statusCode:', response && response.statusCode); // Print the response status code if a response was received
         session.send('body:', body); // Print the HTML for the Google homepage.
