@@ -38,6 +38,7 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 .matches('Tags', (session, args) => {
     let searchTerm = args.entities[0].entity;
     session.send('You want to know about ' + searchTerm + '. Here\'s what I found:');
+    session.sendTyping();
     session.send('1');
    
     let msg = new builder.Message(session);
