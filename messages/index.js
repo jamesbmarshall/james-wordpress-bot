@@ -35,7 +35,7 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 .matches('<yourIntent>')... See details at http://docs.botframework.com/builder/node/guides/understanding-natural-language/
 */
 .matches('Tags', (session, args) => {
-    let searchTerm = ars.entities[0].entity;
+    let searchTerm = args.entities[0].entity;
     let msg = new builder.Message(session);
     msg.attachmentLayout(builder.AttachmentLayout.carousel)
 
@@ -48,10 +48,7 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
             // handle what happens if the API isn't working
         }
 
-        // you may or may not need this line depending on whether it's JSON encoded already
-        // if you don't you will get a syntax error her in your logs
-        
-            b = JSON.parse(body);
+        b = JSON.parse(body);
      
         // create the message
         msg.attachments([
@@ -68,32 +65,6 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
         ]);
         session.send(msg);
     });
-})
-
-
-.matches('Cats', (session, args) => {
-    var msg = new builder.Message(session);
-    msg.attachmentLayout(builder.AttachmentLayout.carousel)
-    msg.attachments([
-        new builder.HeroCard(session)
-            .title(args.entities[0].entity)
-            .subtitle("A blog post about your chosen topic.")
-            .text("Excerpt text from the blog post will go here, providing an insight into the post itself. Probably more words than can fit in.")
-            .images([builder.CardImage.create(session, 'https://jamesbmarshall.com/wp-content/uploads/2017/07/wider.png')])
-            .buttons([
-                builder.CardAction.imBack(session, "buy classic white t-shirt", "Buy")
-            ]),
-            new builder.HeroCard(session)
-            .title("Classic Gray T-Shirt")
-            .subtitle("100% Soft and Luxurious Cotton")
-            .text("Price is $25 and carried in sizes (S, M, L, and XL)")
-            .images([builder.CardImage.create(session, 'http://petersapparel.parseapp.com/img/grayshirt.png')])
-            .buttons([
-                builder.CardAction.imBack(session, "buy classic gray t-shirt", "Buy")
-            ])
-    ]);
-    session.send(msg);
-    
 })
 
 .onDefault((session) => {
