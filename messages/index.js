@@ -61,8 +61,10 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
                     ]);
             })
         ]);
-        session.send(msg);
+        
     });
+
+    session.send(msg);
 })
 
 .onDefault((session) => {
