@@ -40,16 +40,19 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
     let searchTerm = args.entities[0].entity;
 
     session.send('You want to know about ' + searchTerm + '. Here\'s what I found:');
-    session.sendTyping() // Loading indicator
+    session.send('1')
    
     let msg = new builder.Message(session);
+    session.send('2')
     msg.attachmentLayout(builder.AttachmentLayout.carousel)
-
+session.send('3')
     // make the request to the API
     request('https://jamesbmarshall.com/wp-json/wp/v2/posts?search=' + searchTerm, function (error, response, body) {
-        
+        session.send('4')
         let b = [];
+        session.send('5')
         b = JSON.parse(body);
+        session.send('6')
         session.send(b);
 
         // create the message
