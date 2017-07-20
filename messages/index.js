@@ -36,7 +36,7 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 */
 .matches('Tags', (session, args) => {
     session.sendTyping() // Loading indicator
-    
+
     let searchTerm = args.entities[0].entity;
 
     session.send('You want to know about ' + searchTerm + '. Here\'s what I found:');
@@ -49,8 +49,9 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
     request('https://jamesbmarshall.com/wp-json/wp/v2/posts?search=' + searchTerm, function (error, response, body) {
         
         let b = [];
-        b = body;
-    
+        b = JSON.parse(body);
+        console.log(b);
+            
         // create the message
         msg.attachments([
             b.map((post) => {
