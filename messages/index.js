@@ -41,6 +41,18 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
         session.send('body:', body); // Print the HTML for the Google homepage.
     });
         
+    msg.attachments([
+        args.entities.map((entity) => {
+            return new builder.HeroCard(session)
+                .title(entity.entity)
+                .subtitle("A blog post about your chosen topic.")
+                .text("Excerpt text from the blog post will go here, providing an insight into the post itself. Probably more words than can fit in.")
+                .images([builder.CardImage.create(session, 'https://jamesbmarshall.com/wp-content/uploads/2017/07/wider.png')])
+                .buttons([
+                    builder.CardAction.imBack(session, "buy classic white t-shirt", "Buy")
+                ]);
+        })
+    ]);
 })
 
 .matches('Cats', (session, args) => {
