@@ -50,12 +50,9 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 
         // you may or may not need this line depending on whether it's JSON encoded already
         // if you don't you will get a syntax error her in your logs
-        try {
+        
             b = JSON.parse(body);
-        } catch () {
-            b = body;
-        }
-
+     
         // create the message
         msg.attachments([
             b.map((post) => {
