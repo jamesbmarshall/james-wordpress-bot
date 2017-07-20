@@ -36,6 +36,9 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 */
 .matches('Tags', (session, args) => {
     let searchTerm = args.entities[0].entity;
+
+    session.send('You want to know about ' + searchTerm);
+    
     let msg = new builder.Message(session);
     msg.attachmentLayout(builder.AttachmentLayout.carousel)
 
