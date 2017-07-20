@@ -34,7 +34,7 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 /*
 .matches('<yourIntent>')... See details at http://docs.botframework.com/builder/node/guides/understanding-natural-language/
 */
-.matches('Cats', (session, args) => {
+.matches('Tags', (session, args) => {
     request('http://www.google.com', function (error, response, body) {
         session.send('error:', error); // Print the error if one occurred
         session.send('statusCode:', response && response.statusCode); // Print the response status code if a response was received
@@ -43,7 +43,7 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
         
 })
 
-.matches('Tags', (session, args) => {
+.matches('Cats', (session, args) => {
     var msg = new builder.Message(session);
     msg.attachmentLayout(builder.AttachmentLayout.carousel)
     msg.attachments([
