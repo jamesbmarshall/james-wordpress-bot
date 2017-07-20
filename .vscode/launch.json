@@ -8,9 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${file}",
-            "env": {"NODE_ENV": "development"
-            }
+            "program": "${file}" 
         }
     ]
 }
