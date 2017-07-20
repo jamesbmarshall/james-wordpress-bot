@@ -35,25 +35,44 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 .matches('<yourIntent>')... See details at http://docs.botframework.com/builder/node/guides/understanding-natural-language/
 */
 .matches('Tags', (session, args) => {
-    request('https://jamesbmarshall.com/wp-json/wp/v2/posts?search=' + args.entities[0].entity, function (error, response, body) {
-        session.send('error:', error); // Print the error if one occurred
-        session.send('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-        session.send('body:', body); // Print the HTML for the Google homepage.
-    });
+    let searchTerm = ars.entities[0].entity;
+    let msg = new builder.Message(session);
+    msg.attachmentLayout(builder.AttachmentLayout.carousel)
+
+    // make the request to the API
+    request('https://jamesbmarshall.com/wp-json/wp/v2/posts?search=' + searchTerm, function (error, response, body) {
         
-    msg.attachments([
-        args.entities.map((entity) => {
-            return new builder.HeroCard(session)
-                .title(entity.entity)
-                .subtitle("A blog post about your chosen topic.")
-                .text("Excerpt text from the blog post will go here, providing an insight into the post itself. Probably more words than can fit in.")
-                .images([builder.CardImage.create(session, 'https://jamesbmarshall.com/wp-content/uploads/2017/07/wider.png')])
-                .buttons([
-                    builder.CardAction.imBack(session, "buy classic white t-shirt", "Buy")
-                ]);
-        })
-    ]);
+        let b = [];
+
+        if (err) {
+            // handle what happens if the API isn't working
+        }
+
+        // you may or may not need this line depending on whether it's JSON encoded already
+        // if you don't you will get a syntax error her in your logs
+        try {
+            b = JSON.parse(body);
+        } catch () {
+            b = body;
+        }
+
+        // create the message
+        msg.attachments([
+            b.map((post) => {
+                return new builder.HeroCard(session)
+                    .title(post.title)
+                    .subtitle("A blog post about your chosen topic.")
+                    .text("Excerpt text from the blog post will go here, providing an insight into the post itself. Probably more words than can fit in.")
+                    .images([builder.CardImage.create(session, 'https://jamesbmarshall.com/wp-content/uploads/2017/07/wider.png')])
+                    .buttons([
+                        builder.CardAction.imBack(session, "buy classic white t-shirt", "Buy")
+                    ]);
+            })
+        ]);
+        session.send(msg);
+    });
 })
+
 
 .matches('Cats', (session, args) => {
     var msg = new builder.Message(session);
