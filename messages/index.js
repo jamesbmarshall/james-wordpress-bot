@@ -43,28 +43,22 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
     request('https://jamesbmarshall.com/wp-json/wp/v2/posts?search=' + searchTerm, function (error, response, body) {
         
         let b = [];
-
-        if (err) {
-            // handle what happens if the API isn't working
-        }
      
         // create the message
         msg.attachments([
             b.map((post) => {
                 return new builder.HeroCard(session)
                     .title(post.title)
-                    .subtitle("A blog post about your chosen topic.")
-                    .text("Excerpt text from the blog post will go here, providing an insight into the post itself. Probably more words than can fit in.")
-                    .images([builder.CardImage.create(session, 'https://jamesbmarshall.com/wp-content/uploads/2017/07/wider.png')])
+                    //.subtitle("A blog post about your chosen topic.")
+                    .text(post.excerpt)
+                    //.images([builder.CardImage.create(session, 'https://jamesbmarshall.com/wp-json/wp/v2/media' + post.featured_media)])
                     .buttons([
                         builder.CardAction.imBack(session, "buy classic white t-shirt", "Buy")
                     ]);
             })
         ]);
-        
+        session.send(msg);
     });
-
-    session.send(msg);
 })
 
 .onDefault((session) => {
