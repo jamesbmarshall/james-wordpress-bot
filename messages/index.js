@@ -42,7 +42,7 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 })
 
 .matches('None', (session, args) => { 
-    session.send('Sorry, I don\'t understand.');
+    session.send('Sorry, I did not understand.');
 })
 .onDefault((session) => {
     session.send('Sorry, I did not understand \'%s\'.', session.message.text);
