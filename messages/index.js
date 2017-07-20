@@ -5,7 +5,7 @@ For a complete walkthrough of creating this type of bot see the article at
 https://aka.ms/abs-node-luis
 -----------------------------------------------------------------------------*/
 "use strict";
-var request = require('request');
+//var request = require('request');
 var builder = require("botbuilder");
 var botbuilder_azure = require("botbuilder-azure");
 var path = require('path');
