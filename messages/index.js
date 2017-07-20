@@ -47,8 +47,6 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
         if (err) {
             // handle what happens if the API isn't working
         }
-
-        b = JSON.parse(body);
      
         // create the message
         msg.attachments([
@@ -63,8 +61,10 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
                     ]);
             })
         ]);
-        session.send(msg);
+        
     });
+
+    session.send(msg);
 })
 
 .onDefault((session) => {
