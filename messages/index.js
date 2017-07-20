@@ -46,18 +46,8 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
     request('https://jamesbmarshall.com/wp-json/wp/v2/posts?search=' + searchTerm, function (error, response, body) {
         
         let b = [];
-
-        if (err) {
-            // handle what happens if the API isn't working
-        }
-
-        // you may or may not need this line depending on whether it's JSON encoded already
-        // if you don't you will get a syntax error her in your logs
-
-            b = JSON.parse(body);
-
-
-     
+        b = body;
+    
         // create the message
         msg.attachments([
             b.map((post) => {
