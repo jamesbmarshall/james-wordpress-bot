@@ -5,7 +5,6 @@ For a complete walkthrough of creating this type of bot see the article at
 https://aka.ms/abs-node-luis
 -----------------------------------------------------------------------------*/
 "use strict";
-//var request = require('request');
 var builder = require("botbuilder");
 var botbuilder_azure = require("botbuilder-azure");
 var path = require('path');
@@ -37,18 +36,18 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 .matches('<yourIntent>')... See details at http://docs.botframework.com/builder/node/guides/understanding-natural-language/
 */
 .matches('Tags', (session, args) => {
-    session.send('0');
-
     let searchTerm = args.entities[0].entity;
-
     session.send('You want to know about ' + searchTerm + '. Here\'s what I found:');
     session.send('1');
    
     let msg = new builder.Message(session);
     session.send('2');
+
     msg.attachmentLayout(builder.AttachmentLayout.carousel)
-session.send('3');
+    session.send('3');
+    
     // make the request to the API
+    var request = require('request');
     request('https://jamesbmarshall.com/wp-json/wp/v2/posts?search=' + searchTerm, function (error, response, body) {
         session.send('4');
         let b = [];
