@@ -35,6 +35,8 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 .matches('<yourIntent>')... See details at http://docs.botframework.com/builder/node/guides/understanding-natural-language/
 */
 .matches('Tags', (session, args) => {
+    session.sendTyping() // Loading indicator
+    
     let searchTerm = args.entities[0].entity;
 
     session.send('You want to know about ' + searchTerm + '. Here\'s what I found:');
