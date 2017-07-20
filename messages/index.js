@@ -38,7 +38,8 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
     let searchTerm = args.entities[0].entity;
 
     session.send('You want to know about ' + searchTerm + '. Here\'s what I found:');
-
+    session.sendTyping() // Loading indicator
+   
     let msg = new builder.Message(session);
     msg.attachmentLayout(builder.AttachmentLayout.carousel)
 
@@ -53,11 +54,9 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
             b.map((post) => {
                 return new builder.HeroCard(session)
                     .title(post.title)
-                    //.subtitle("A blog post about your chosen topic.")
                     .text(post.excerpt)
-                    //.images([builder.CardImage.create(session, 'https://jamesbmarshall.com/wp-json/wp/v2/media' + post.featured_media)])
                     .buttons([
-                        builder.CardAction.imBack(session, "buy classic white t-shirt", "Buy")
+                        builder.CardAction.imBack(session, "Read this post", "Read")
                     ]);
             })
         ]);
