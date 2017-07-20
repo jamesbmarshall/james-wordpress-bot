@@ -37,41 +37,8 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
 */
 .matches('Tags', (session, args) => {
     let searchTerm = args.entities[0].entity;
+    session.sendTyping();   
     session.send('You want to know about ' + searchTerm + '. Here\'s what I found:');
-    session.sendTyping();
-    session.send('1');
-   
-    let msg = new builder.Message(session);
-    session.send('2');
-
-    msg.attachmentLayout(builder.AttachmentLayout.carousel)
-    session.send('3');
-    
-    // make the request to the API
-    var request = require('request');
-    request('https://jamesbmarshall.com/wp-json/wp/v2/posts?search=' + searchTerm, function (error, response, body) {
-        session.send('4');
-        let b = [];
-        session.send('5');
-        b = JSON.parse(body);
-        session.send('6');
-        session.send(b);
-
-        // create the message
-        msg.attachments([
-            b.map((post) => {
-                return new builder.HeroCard(session)
-                    .title(post.title)
-                    .text(post.excerpt)
-                    .buttons([
-                        builder.CardAction.imBack(session, "Read this post", "Read")
-                    ]);
-            })
-        ]);
-        session.send(msg);
-    });
-
-    
 })
 
 .onDefault((session) => {
